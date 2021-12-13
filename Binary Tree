@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int value;
+struct node *left_child, *right_child;
+};
+int i=1;
+struct node *new_node(int value)
+{  i++;
+   struct node *tmp = (struct node *)malloc(sizeof(struct node));
+   tmp->value = value;
+   tmp->left_child = tmp->right_child = NULL;
+   return tmp;
+}
+/*void print(struct node *root_node) // displaying the nodes!
+{
+   if (root_node != NULL)
+   {
+   print(root_node->left_child);
+   printf("%d \n", root_node->value);
+   print(root_node->right_child);
+   }
+}
+*/
+void preorder(struct node *root)
+{
+    if(root==NULL)
+       printf ("");
+    else
+    {
+        printf("%d ",root->value);
+        preorder(root->left_child);
+        preorder(root->right_child);
+    }
+}
+void inorder(struct node *root)
+{
+    if(root==NULL)
+       printf ("");
+    else
+    {
+        inorder(root->left_child);
+        printf("%d",root->value);
+        inorder(root->right_child);
+    }
+}
+struct node* insert_node(struct node* node, int value) // inserting nodes!
+{
+   if (node == NULL) return new_node(value);
+   if (i%2==0)
+   {
+       node->left_child = insert_node(node->left_child, value);
+   }
+   else if (i%2!=0)
+   {
+       node->right_child = insert_node(node->right_child, value);
+   }
+   return node;
+}
+int main()
+{
+   printf("Implementation of a Binary Tree in C:\n\n");
+   struct node *root_node = NULL;
+   root_node = insert_node(root_node, 1);
+   insert_node(root_node, 2);
+   insert_node(root_node, 3);
+   insert_node(root_node, 4);
+   insert_node(root_node, 5);
+   insert_node(root_node, 6);
+   insert_node(root_node, 7);
+   preorder(root_node);
+   printf("\n");
+   inorder(root_node);
+   return 0;
+}
